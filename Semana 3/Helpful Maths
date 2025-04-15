@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#define max 101
+int main()
+{
+    char sum[max], aux;
+    scanf("%s", sum);
+    //printf("tamanho da string = %ld\n", strlen(sum));
+    for(int i=0; i<strlen(sum); i+=2)
+    {
+        for(int j=i+2; j<strlen(sum); j+=2)
+        {
+            if(sum[i]>sum[j])
+            {
+                aux=sum[i];
+                sum[i]=sum[j];
+                sum[j]=aux;
+            }
+        }
+    }
+    printf("%s\n", sum);
+    return 0;
+}
