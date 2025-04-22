@@ -1,3 +1,4 @@
+//Algoritmo de Euclides
 //Sejam a, b inteiros positivos. O Máximo divisor comum de a e b eh dado por:
 int gcd(int a, int b) //mdc
 {
