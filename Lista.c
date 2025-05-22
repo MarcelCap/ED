@@ -1,27 +1,34 @@
+
 #include <stdio.h>
 typedef struct No{
     int num;
     char pessoa;
     struct No* prox;
-}vagao;
+}no;
 
-typedef struct lista{
-    vagao* final;
-    vagao* inicio;
+typedef struct Lista{
+    no* final;
+    no* inicio;
     int tamanho;
-}metro;
-void add(metro* l, char nome, int number)
+}lista;
+void criarlista(lista* l)
 {
-    vagao* v0 = malloc(sizeof(vagao));
+    l->tamanho=0;
+    l->inicio=NULL;
+    l->final=NULL;
+}
+void add(lista* l, char nome, int number)
+{
+    no* v0 = malloc(sizeof(no));
     v0->num=number;
     v0->pessoa=nome;
     v0->prox=l->inicio;
     l->inicio = v0;
     l->tamanho++;
 }
-void addfim(metro* l, char nome, int number)
+void addfim(lista* l, char nome, int number)
 {
-    vagao* v0 = malloc(sizeof(vagao));
+    no* v0 = malloc(sizeof(no));
     v0->num=number;
     v0->pessoa=nome;
     if(l->tamanho)
@@ -36,12 +43,32 @@ void addfim(metro* l, char nome, int number)
     }
     l->tamanho++;
 }
+void remove(lista* l, int index)
+{
+    if(l->tamanho){
+        no* atual = malloc(sizeof(no));
+        no* anterior = malloc(sizeof(no));
+        atual=l->inicio;
+        while(atual->num != index){
+            if(atual==l->final) break;
+            if(atual->prox->num==index){
+                anterior=atual;
+            }
+            atual=atual->prox;
+        }
+        if(atual->num!=index){
+            printf("Elemento nao existe na lista!!!\n");
+            return;
+        }
+        else{
+            anterior->prox=atual->prox;
+        }
+    }
+}
 int main()
 {
-    metro m0;
-    m0.tamanho=0;
-    m0.inicio=NULL;
-    m0.final=NULL;
+    lista m0;
+    criarlista(&m0);
     //scanf("%s");
     //add(m0, nome, number);
     return 0;
