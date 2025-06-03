@@ -1,0 +1,105 @@
+//Nesse problema temos que empilhar a soma de n digitos;
+//quando um digito inserido eh nulo (0), indica erro e temos que retirar o ultimo digito da pilha.
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct No{
+    int num;
+    struct No* prox;
+} no;
+
+typedef struct pilha{
+    no* topo;
+    int tam;
+} pilha;
+
+pilha* Stack(void){
+    pilha* p = malloc(sizeof(pilha));
+    if (p == NULL) {
+        printf("Erro ao alocar memória para a pilha.\n");
+        exit(1);
+    }
+    p->topo=NULL;
+    p->tam=0;
+    return p;
+}
+bool isEmpty(pilha* p){
+    return p->tam == 0;
+}
+
+void push(pilha* p, int item){
+    no* novo=malloc(sizeof(no));
+    if (novo == NULL) {
+        printf("Erro ao alocar memória para novo nó.\n");
+        exit(1);
+    }
+    novo->num=item;
+    novo->prox=p->topo;
+    p->topo=novo;
+    p->tam++;
+}
+int peek(pilha* p){
+    if(isEmpty(p))  printf("Pilha vazia!\n");
+    return p->tam>0 ? p->topo->num : -1; 
+}
+
+int pop(pilha* p){ 
+    if(!isEmpty(p)){
+        no* remov = p->topo;
+        int i=peek(p);
+        p->topo = p->topo->prox;
+        free(remov);
+        p->tam--;
+        return i;
+    }
+    else{
+        printf("Pilha vazia!\n");
+        return -1;
+    }
+}
+
+void pop_no_return(pilha* p){
+    if(!isEmpty(p)){
+        no* remov = p->topo;
+        p->topo = p->topo->prox;
+        free(remov);
+        p->tam--;
+    }
+    else{
+        printf("Pilha vazia!\n");
+    }
+}
+
+
+
+void clear(pilha*p){
+    while(!isEmpty(p)){
+        pop_no_return(p);
+    }
+}
+
+void destroyStack(pilha* p){
+    clear(p);
+    free(p);
+}
+
+int main(){
+    pilha* numbers=Stack();
+    int n;
+    scanf("%d", &n);
+    int sum=0;
+    while(n--){
+        int aux;
+        scanf("%d", &aux);
+        if(aux==0){
+            sum-=pop(numbers);
+        }
+        else{
+            sum+=aux;
+            push(numbers, aux);
+        }
+    }
+    printf("Sum: %d\n", sum);
+    return 0;
+}
