@@ -1,2 +1,2 @@
 # ED
-Arquivos e códigos que fiz (e atualmente estou fazendo) na disciplina Estrutura de dados
+Arquivos e códigos que fiz na disciplina Estrutura de dados
